@@ -9,13 +9,15 @@ const authController = {
         return authModel.login(req.body)
             .then((result) => {
                 jwt.sign({ id: result.id, role: result.role }, JWT_PRIVATE_KEY, (err, token) => {
-                    return res.status(200).send({message: "success", data: {
+                    return res.status(200).send({
+                        message: "success", data: {
                             token,
                             user: {
                                 id: result.id,
                                 name: result.name,
                                 role: result.role,
-                                email: result.email
+                                email: result.email,
+                                mobile_number: result.mobile_number
                             },
                         }
                     })

@@ -39,7 +39,6 @@ const usersModel = {
             db.query(
                 `SELECT * from users ${this.query(search, name, sortBy, limit, offset)}`,
                 (err, result) => {
-                    console.log(result);
                     if (err) {
                         return reject(err.message)
                     } else {
