@@ -25,7 +25,7 @@ app.get("*", (req, res) => {
   });
 });
 
-const port = 5000;
-app.listen(process.env.PORT || port, (req, res) => {
+const port = process.env.PORT || 5000;
+app.listen(port, (req, res) => {
   console.log(`Server successfully running on port ${port}`);
 });
