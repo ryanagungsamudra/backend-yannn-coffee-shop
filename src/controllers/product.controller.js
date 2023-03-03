@@ -13,9 +13,11 @@ const productController = {
         }
         return productModel.create(request)
             .then((result) => {
+                // console.log(result);
                 return formResponse(201, "success", result, res)
             }).catch((error) => {
-                return formResponse(500, error)
+                // return formResponse(500, error)
+                return res.status(500).send({ message: error })
             })
     },
     read: (req, res) => {
@@ -72,12 +74,12 @@ const productController = {
         return productModel.remove(req.params.id)
             .then((result) => {
                 // Looping untuk setiap index pada data result
-                for (let i = 0; i < result.length; i++) {
-                    unlink(`public/uploads/images/${result[i].filename}`, (err) => {
-                        if (err) throw err;
-                        // console.log(`Product has been deleted! ${result[i].filename}`);
-                    });
-                }
+                // for (let i = 0; i < result.length; i++) {
+                //     unlink(`public/uploads/images/${result[i].filename}`, (err) => {
+                //         if (err) throw err;
+                //         // console.log(`Product has been deleted! ${result[i].filename}`);
+                //     });
+                // }
                 return res.status(201).send({ message: "succes deleted", data: result })
                 // return formResponse(201, "success", result, res)
             }).catch((error) => {

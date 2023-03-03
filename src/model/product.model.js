@@ -13,6 +13,7 @@ const productModel = {
                         return reject(err.message)
                     } else {
                         for (let index = 0; index < file.length; index++) {
+                            // console.log(file[index]);
                             db.query(`INSERT INTO products_images (id_image, id_product, name, filename) VALUES($1, $2 ,$3 , $4)`, [uuidv4(), result.rows[0].id, title, file[index].filename])
                         }
                         return resolve({ title, price, category, delivery_info, description, images: file })
