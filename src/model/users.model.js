@@ -52,14 +52,14 @@ const usersModel = {
     readDetail: (id) => {
         return new Promise((resolve, reject) => {
             db.query(
-                `SELECT 
-                p.id, p.email, p.mobile_number, p.profile_image, p.role,
-                json_agg(row_to_json(pi)) history 
-                FROM users p
-                INNER JOIN products_order pi ON p.id = pi.id_user
-                AND p.id='${id}'
-                GROUP BY p.id`,
-                // `SELECT * from users WHERE id='${id}'`,
+                // `SELECT 
+                // p.id, p.email, p.mobile_number, p.profile_image, p.role,
+                // json_agg(row_to_json(pi)) history 
+                // FROM users p
+                // INNER JOIN products_order pi ON p.id = pi.id_user
+                // AND p.id='${id}'
+                // GROUP BY p.id`,
+                `SELECT * from users WHERE id='${id}'`,
                 (err, result) => {
                     if (err) {
                         return reject(err.message)

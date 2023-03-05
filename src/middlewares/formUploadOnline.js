@@ -10,10 +10,10 @@ const storage = multer.diskStorage({
         cb(null, `${new Date().getTime()}-${file.originalname}`);
     },
 });
+
 const storageOnline = new CloudinaryStorage({
     cloudinary: cloudinaryUpload,
     params: {
-        folder: "movie-img-profile",
         folder: "yannn-coffee-shop",
         format: async (req, file) => "png",
         public_id: (req, file) => new Date().getTime(),
@@ -22,7 +22,8 @@ const storageOnline = new CloudinaryStorage({
 
 const formUploadOnline = multer({
     storage: storageOnline, //test bisa atau ga
-    fileFilter: (req, file, cb) => {
+    fileFilter: (req, res, file, cb) => {
+        // console.log(file);
         let formatType = path.extname(file.originalname);
         if (formatType == ".png" || formatType == ".jpg" || formatType == ".jpeg") {
             cb(null, true);
@@ -34,4 +35,5 @@ const formUploadOnline = multer({
         fileSize: 1048576 * 2, //2 mb
     },
 });
+
 module.exports = formUploadOnline

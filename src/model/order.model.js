@@ -21,7 +21,7 @@ const productModel = {
 
     // READ
     query: (search, category, sortBy, limit, offset) => {
-        let orderQuery = `ORDER BY title ${sortBy} LIMIT ${limit} OFFSET ${offset}`
+        let orderQuery = `ORDER BY time ${sortBy} LIMIT ${limit} OFFSET ${offset}`
 
         if (!search && !category) {
             return orderQuery
@@ -34,7 +34,7 @@ const productModel = {
         }
     },
 
-    read: function (search, category, sortBy = 'ASC', limit = 25, offset = 0) {
+    read: function (search, category, sortBy = 'DESC', limit = 25, offset = 0) {
         return new Promise((resolve, reject) => {
             db.query(
                 `SELECT * from products_order ${this.query(search, category, sortBy, limit, offset)}`,
@@ -52,7 +52,14 @@ const productModel = {
     readDetail: (id) => {
         return new Promise((resolve, reject) => {
             db.query(
-                `SELECT * from products_order WHERE id='${id}'`,
+                `SELECT 
+                p.id, p.email, p.mobile_number, p.profile_image, p.role,
+                json_agg(row_to_json(pi)) history 
+                FROM users p
+                INNER JOIN products_order pi ON p.id = pi.id_user
+                AND p.id='${id}'
+                GROUP BY p.id`,
+                // `SELECT * from products_order WHERE id='${id}'`,
                 (err, result) => {
                     if (err) {
                         return reject(err.message)

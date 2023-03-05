@@ -30,7 +30,8 @@ const productDetailController = {
                     return res.status(404).send({ message: "Sorry data not found! Please check your input ID!" })
                 }
             }).catch((error) => {
-                return formResponse(500, error)
+                // return formResponse(500, error)
+                return res.status(500).send({ message: error })
             })
     },
     update: (req, res) => {

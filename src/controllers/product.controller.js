@@ -52,7 +52,7 @@ const productController = {
             id: req.params.id,
             file: req.files
         }
-        console.log(request);
+        // console.log(request);
         return productModel.update(request)
             .then((result) => {
                 if (typeof result.oldImages != "undefined") {
