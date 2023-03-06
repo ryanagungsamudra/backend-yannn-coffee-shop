@@ -22,7 +22,7 @@ const storageOnline = new CloudinaryStorage({
 
 const formUploadOnline = multer({
     storage: storageOnline, //test bisa atau ga
-    fileFilter: (req, res, file, cb) => {
+    fileFilter: (req, file, cb) => {
         // console.log(file);
         let formatType = path.extname(file.originalname);
         if (formatType == ".png" || formatType == ".jpg" || formatType == ".jpeg") {
@@ -31,8 +31,8 @@ const formUploadOnline = multer({
             cb("image not valid", false);
         }
     },
-    limit: {
-        fileSize: 1048576 * 2, //2 mb
+    limits: {
+        fileSize: 1048576 * 10, //2 mb
     },
 });
 
